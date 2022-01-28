@@ -11,7 +11,7 @@
             {% if messages %}
                 {% for message in messages %} 
                 <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
-                    {{message}} <a href="{% url 'Profile' %}" name='Profile'><b>Back To Profile</b></a>
+                    {{message}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -26,8 +26,8 @@
             <div class="profile">
     
                 <div class="profile-image">
-                    {% if profile_image %}
-                        <img src="{{ user.profile.profile_image }}" alt="">
+                    {% if user.profile.profile_image %}
+                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" alt="" height="150" width="150">
                     {% else %}
                         <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="" height="160" width="160">
                     {% endif %}
@@ -57,7 +57,13 @@
     
                 <div class="profile-bio">
     
-                    <p>{{ user.first_name }} {{ user.last_name }}<br><b> {{ user.profile.bio }} </b></p>
+                    <p>{{ user.first_name }} {{ user.last_name }}<br>
+                        {% if user.profile.bio %}
+                        <b>{{ user.profile.bio }}</b>
+                        {% else %}
+                        <b></b>
+                        {% endif %}
+                    </p>
     
                 </div>
     

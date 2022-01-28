@@ -233,7 +233,11 @@
                 <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                     <div class="profile-button__border"></div>
                     <div class="profile-button__picture">
+                        {% if user.profile.profile_image %}
+                            <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" alt="" height="25" width="25">
+                        {% else %}
                         <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+                        {% endif %}
                     </div>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

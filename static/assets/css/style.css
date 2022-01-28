@@ -365,6 +365,10 @@ a:hover{
     background-color: #fff;
 }
 
+.rounded-circle{
+  border-color: 5px solid #808080!important;
+}
+
 /* Main Page */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');

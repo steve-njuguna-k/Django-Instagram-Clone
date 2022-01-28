@@ -82,10 +82,13 @@ def EditProfile(request, username):
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
         if user_form.is_valid() and profile_form.is_valid():
-                user_form.save()
-                profile_form.save()
-                messages.success(request, '✅ Your Profile Has Been Updated Successfully!')
-                return redirect('Profile')
+            user_form.save()
+            profile_form.save()
+            messages.success(request, '✅ Your Profile Has Been Updated Successfully!')
+            return redirect('Profile')
+        else:
+            messages.error(request, "⚠️ Your Profile Wasn't Updated!")
+            return redirect('EditProfile', username=username)
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
