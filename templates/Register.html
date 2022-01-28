@@ -8,18 +8,16 @@
                 <img src={% static "assets/img/instagram-logo.png" %} alt="Instagram logo" title="Instagram logo" />
             </h1>
             <p class="text-muted text-center">Sign up to see photos and videos from your friends.</p>
-            
+            <div class="panel register flex justify-content-center">
+                <div class="hint-text text-center" style="font-size: small;">Already Have An Account? <a href="{% url 'Login' %}" name = 'Login'>Log In</a></div>
+            </div> 
             <input name="email" placeholder="Email Address" />
             <input name="text" placeholder="Full Name" />
             <input name="text" placeholder="Username" />
             <input name="password" placeholder="Password" />
             <input name="password" placeholder="Confirm Password" />
             <button type="submit" class="btn btn-blue btn-block btn-sm">Sign Up</button>
-
         </form>
-        <div class="login-with-fb flex direction-column align-items-center">
-            <a href="#">Forgot password?</a>
-        </div>
     </div>
 
     {% block footer %}
