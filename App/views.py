@@ -17,15 +17,15 @@ def Register(request):
         password2 = request.POST['password2']
 
         if password1 != password2:
-            messages.error('⚠️ Passwords Do Not Match! Try Again')
+            messages.error(request, '⚠️ Passwords Do Not Match! Try Again')
             return redirect('Register')
 
         if User.objects.filter(username=username).exists():
-            messages.error('⚠️ Username Already Exists! Choose Another One')
+            messages.error(request, '⚠️ Username Already Exists! Choose Another One')
             return redirect('Register')
 
         if User.objects.filter(email=email).exists():
-            messages.error('⚠️ Email Address Already Exists! Choose Another One')
+            messages.error(request, '⚠️ Email Address Already Exists! Choose Another One')
             return redirect('Register')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email)
