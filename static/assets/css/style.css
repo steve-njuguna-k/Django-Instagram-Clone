@@ -36,7 +36,7 @@ p{
 }
 
 .signup-form .form-control {
-	border-radius: 7px;
+	border-radius: 3px;
 }
 
 .signup-form .row div:first-child {
@@ -49,22 +49,24 @@ p{
 
 .signup-form .btn {
     background-color: #0666eb;     
-    border-radius: 0px;
+    border-radius: 3px;
     color: #fff;
     font-weight: bold;
     height: 35px;
     margin-top: 10px;
     width: 100%;
+    font-size: small;
 }
 
 .signup-form .btn:hover, .signup-form .btn:focus {
     background-color: #0666eb;     
-    border-radius: 5px;
+    border-radius: 3px;
     color: #fff;
     font-weight: bold;
     height: 35px;
     margin-top: 10px;
     width: 100%;
+    font-size: small;
 }
 
 .signup-form a {
@@ -143,22 +145,24 @@ p{
 
 .login-form .btn {
     background-color: #0666eb;     
-    border-radius: 0px;
+    border-radius: 3px;
     color: #fff;
     font-weight: bold;
     height: 35px;
     margin-top: 10px;
     width: 100%;
+    font-size: small;
 }
 
 .login-form .btn:hover, .login-form .btn:focus {
     background-color: #0666eb;     
-    border-radius: 5px;
+    border-radius: 3px;
     color: #fff;
     font-weight: bold;
     height: 35px;
     margin-top: 10px;
     width: 100%;
+    font-size: small;
 }
 
 .login-form a {
