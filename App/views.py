@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from .forms import UpdateUserForm, UpdateProfileForm
 
 # Create your views here.
 def Register(request):
@@ -76,4 +77,17 @@ def Profile(request):
 @login_required(login_url='Login')
 def EditProfile(request, username):
     user = User.objects.filter(username=username)
-    return render(request, 'Edit Profile.html')
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+                user_form.save()
+                profile_form.save()
+                messages.success(request, '✅ Your Profile Has Been Updated Successfully!')
+                return redirect('EditProfile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'EditProfile.html', {'user_form': user_form, 'profile_form': profile_form})

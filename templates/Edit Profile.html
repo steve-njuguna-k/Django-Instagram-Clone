@@ -33,10 +33,10 @@
                 <input type="file" class="form-control-file" value="{{ user.profile_image }}">
                 <div class="row">
                     <div class="col">
-                        <input type="text" name="first_name" value="{{ user.first_name }}" required/>
+                        {{ user_form.first_name }}
                     </div>
                     <div class="col">
-                        <input type="text" name="last_name" value="{{ user.last_name }}" required/>
+                        {{ user_form.last_name }}
                     </div>
                 </div>
                 <input type="text" name="username" value="{{ user.username }}" required/>
