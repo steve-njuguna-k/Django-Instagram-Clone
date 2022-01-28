@@ -26,7 +26,7 @@
             {% csrf_token %}
             <center>
                 {% if user.profile.profile_image %}
-                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" alt="" height="250" width="250" style="margin-bottom: 30px;">
+                    <img class="rounded-circle profile-pic" src="{{ user.profile.profile_image.url }}" alt="" height="250" width="250" style="margin-bottom: 30px;">
                 {% else %}
                     <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="" height="160" width="160" style="margin-bottom: 30px;">
                 {% endif %}

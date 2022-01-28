@@ -27,7 +27,7 @@
     
                 <div class="profile-image">
                     {% if user.profile.profile_image %}
-                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" alt="" height="150" width="150">
+                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" alt="" height="180" width="180">
                     {% else %}
                         <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="" height="160" width="160">
                     {% endif %}
@@ -57,9 +57,9 @@
     
                 <div class="profile-bio">
     
-                    <p>{{ user.first_name }} {{ user.last_name }}<br>
+                    <p style="font-size: medium;"><b>{{ user.first_name }} {{ user.last_name }}</b><br>
                         {% if user.profile.bio %}
-                        <b>{{ user.profile.bio }}</b>
+                        {{ user.profile.bio }}
                         {% else %}
                         <b></b>
                         {% endif %}

@@ -359,28 +359,9 @@ a:hover{
     flex-wrap: wrap;
 }
 
-.login-with-fb { 
-    padding-top: 5px; 
-    padding-bottom: 20px;
-    background-color: #fff;
-}
-
-.rounded-circle{
-  border-color: 5px solid #808080!important;
-}
-
 /* Main Page */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-
-/* CSS Reset */
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 *,
 button,
@@ -1151,8 +1132,15 @@ img {
 .profile-button__picture {
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-
+  border-radius: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+}
+.profile-button__picture:hover {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
   overflow: hidden;
   position: relative;
   background-color: #ffffff;
@@ -1164,7 +1152,7 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-
+  border-radius: 100%;
   border: 1px solid var(--img-border);
   border-radius: 50%;
 }
@@ -1256,12 +1244,6 @@ img {
     font-size: 10px;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
 img {
     display: block;
 }
@@ -1316,7 +1298,12 @@ img {
 }
 
 .profile-image img {
-    border-radius: 50%;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.profile-pic{
+  background-color: #ffffff;
 }
 
 .profile-user-settings,
