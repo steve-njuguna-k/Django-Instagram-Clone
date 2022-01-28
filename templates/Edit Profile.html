@@ -6,52 +6,53 @@
         {% include 'Navbar.html' %}
     </div>
 
-        <div class="edit-form">
-            <div class="container">
-                <center>
-                    {% if messages %}
-                        {% for message in messages %} 
-                        <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
-                            {{message}}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        {% endfor %} 
-                    {% endif %}
-                </center>
-            </div>
-            <form action="" method="POST">
-                {% csrf_token %}
-                <center>
-                    {% if profile_image %}
-                        <img src="{{ user.profile_image }}" alt="" style="margin-bottom: 30px;">
-                    {% else %}
-                        <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="" height="160" width="160" style="margin-bottom: 30px;">
-                    {% endif %}
-                </center>
-                <input type="file" class="form-control-file" value="{{ user.profile_image }}">
-                <div class="row">
-                    <div class="col">
-                        {{ user_form.first_name }}
-                    </div>
-                    <div class="col">
-                        {{ user_form.last_name }}
-                    </div>
+    <div class="container-fluid notification">
+        <center>
+            {% if messages %}
+                {% for message in messages %} 
+                <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
+                    {{message}} <a href="{% url 'Profile' %}" name='Profile'><b>Back To Profile</b></a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <input type="text" name="username" value="{{ user.username }}" required/>
-                <input type="email" name="email" value="{{ user.email }}" required/>
-                <textarea class="form-control" rows="3" value="{{ user.bio }}"></textarea>
-                <button type="submit" class="btn btn-blue btn-block btn-sm">Save Changes</button>
-            </form>
-        </div>
-        <!-- End of container -->
+                {% endfor %} 
+            {% endif %}
+        </center>
+    </div>
+
+    <div class="edit-form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <center>
+                {% if profile_image %}
+                    <img src="{{ user.profile_image }}" alt="" style="margin-bottom: 30px;">
+                {% else %}
+                    <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="" height="160" width="160" style="margin-bottom: 30px;">
+                {% endif %}
+            </center>
+            {{ profile_form.profile_image }}
+            <div class="row">
+                <div class="col">
+                    {{ user_form.first_name }}
+                </div>
+                <div class="col">
+                    {{ user_form.last_name }}
+                </div>
+            </div>
+            {{ user_form.username }}
+            {{ user_form.email }}
+            {{ profile_form.bio }}
+            <button type="submit" class="btn btn-blue btn-block btn-sm">Save Changes</button>
+        </form>
+    </div>
+    <!-- End of container -->
     
-        {% block footer %}
+    {% block footer %}
         <div class="container">
             <div id="footer">
                 <p class="text-center text-md-center" style="font-size: small;">© 2022 Django Instagram Clone</p>
             </div>
         </div>
-        {% endblock %}
+    {% endblock %}
 {% endblock %}

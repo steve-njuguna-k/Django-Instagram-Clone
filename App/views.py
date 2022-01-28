@@ -85,9 +85,9 @@ def EditProfile(request, username):
                 user_form.save()
                 profile_form.save()
                 messages.success(request, '✅ Your Profile Has Been Updated Successfully!')
-                return redirect('EditProfile')
+                return redirect('Profile')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'EditProfile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'Edit Profile.html', {'user_form': user_form, 'profile_form': profile_form})

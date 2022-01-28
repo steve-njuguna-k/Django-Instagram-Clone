@@ -6,6 +6,20 @@
         {% include 'Navbar.html' %}
     </div>
 
+    <div class="container-fluid notification">
+        <center>
+            {% if messages %}
+                {% for message in messages %} 
+                <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
+                    {{message}} <a href="{% url 'Profile' %}" name='Profile'><b>Back To Profile</b></a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %} 
+            {% endif %}
+        </center>
+    </div>
 
         <div class="container">
     
@@ -13,7 +27,7 @@
     
                 <div class="profile-image">
                     {% if profile_image %}
-                        <img src="{{ user.profile_image }}" alt="">
+                        <img src="{{ user.profile.profile_image }}" alt="">
                     {% else %}
                         <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="" height="160" width="160">
                     {% endif %}
@@ -43,7 +57,7 @@
     
                 <div class="profile-bio">
     
-                    <p>{{ user.first_name }} {{ user.last_name }}<br><b>Bio:</b> {{ user.bio }}</p>
+                    <p>{{ user.first_name }} {{ user.last_name }}<br><b> {{ user.profile.bio }} </b></p>
     
                 </div>
     

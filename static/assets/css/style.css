@@ -214,7 +214,6 @@ a:hover{
 .edit-form {
   width: 500px;
   margin: 30px auto;
-  margin-top: 50px;
 }
 
 .edit-form form {
@@ -316,27 +315,8 @@ a:hover{
   font-size: 12px;
 }
 
-.separator span {
-    background-color: #dbdbdb;
-    height: 1px;
-    width: calc(100% - 10px);
-}
-
-.separator .or {
-    color: #808080;
-    font-weight: bold;
-}
-
-.separator { 
-    padding: 0 20px; 
-}
-
-.separator span:first-child { 
-    margin-right: 10px;
-}
-
-.separator span:last-child { 
-    margin-left: 10px;
+.notification{
+  margin-top: 90px;
 }
 
 .flex {
@@ -1313,7 +1293,6 @@ img {
 /* Profile Section */
 
 .profile {
-    margin-top: 60px;
     padding: 5rem 0;
 }
 
