@@ -18,7 +18,7 @@ class Posts(models.Model):
         verbose_name_plural = 'Posts'
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='User')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User')
     bio = models.TextField(max_length=150, verbose_name='Bio', null=True)
     profile_image = models.ImageField(upload_to='Profile Pics/', default='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', verbose_name='Profile Image')
     date_published = models.DateTimeField(auto_now_add=True, verbose_name='Date Published')
