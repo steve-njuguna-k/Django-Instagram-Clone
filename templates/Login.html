@@ -2,6 +2,19 @@
 {% load static %}
 
 {% block content %}
+    <div class="container">
+        <center>
+            {% if messages %}
+                {% for message in messages %} 
+                <div class="alert {{message.tags}} m-1" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>
+                {% endfor %} 
+            {% endif %}
+        </center>
+    </div>
     <div class="login-form">
         <form action="" method="POST">
             {% csrf_token %}
