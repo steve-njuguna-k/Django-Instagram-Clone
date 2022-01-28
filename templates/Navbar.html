@@ -230,13 +230,16 @@
             </svg>
             </a>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Dropdown button
+                <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                    <div class="profile-button__border"></div>
+                    <div class="profile-button__picture">
+                        <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+                    </div>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
-                  <a class="dropdown-item" href="{% url 'Logout' %}" name="Logout">Logout</a>
+                  <a class="dropdown-item" href="{% url 'Profile' %}" name="Profile" style="font-size: 14px;">Profile</a>
+                  <a class="dropdown-item" href="#" style="font-size: 14px;">Settings</a>
+                  <a class="dropdown-item" href="{% url 'Logout' %}" name="Logout" style="font-size: 14px;">Logout</a>
                 </div>
             </div>
             <!-- <div  class="dropdown">

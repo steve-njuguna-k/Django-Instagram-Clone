@@ -53,13 +53,15 @@ def Login(request):
 
         if user is not None:
             login(request, user)
-            return redirect(reverse('Profile'))
+            return redirect(reverse('Home'))
         
     return render(request, 'Login.html')
 
-@login_required(login_url='Login')
 def Logout(request):
-    return render(request, 'Login.html')
+    logout(request)
+    messages.success(request, '✅ Successfully Logged Out!')
+    return redirect(reverse('Login'))
+
 
 @login_required(login_url='Login')
 def Home(request):
