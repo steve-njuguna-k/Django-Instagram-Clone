@@ -72,3 +72,8 @@ def Home(request):
 @login_required(login_url='Login')
 def Profile(request):
     return render(request, 'Profile.html')
+
+@login_required(login_url='Login')
+def EditProfile(request, username):
+    user = User.objects.filter(username=username)
+    return render(request, 'Edit Profile.html')

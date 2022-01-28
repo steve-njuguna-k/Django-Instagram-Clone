@@ -9,6 +9,14 @@ p{
 
 a{
   font-size: 14px;
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover{
+  font-size: 14px;
+  text-decoration: none;
+  color: #000000;
 }
 
 .signup-form {
@@ -201,6 +209,111 @@ a{
     padding: 7px 7px;
     width: 100%;
     font-size: 12px;
+}
+
+.edit-form {
+  width: 500px;
+  margin: 30px auto;
+  margin-top: 50px;
+}
+
+.edit-form form {
+	color: #000 ;
+	border-radius: 0px;
+	margin-bottom: 5px;
+	padding: 30px;
+}
+.edit-form h1  {
+	color: #000;
+	font-weight: bold;
+	margin-top: 0;
+}
+
+.edit-form hr  {
+	margin: 0 -30px 20px;
+}   
+
+.edit-form .form-group {
+	margin-bottom: 20px;
+}
+
+.edit-form .form-control {
+	border-radius: 3px;
+}
+
+.edit-form .row div:first-child {
+	padding-right: 10px;
+}
+
+.edit-form .row div:last-child {
+	padding-left: 10px;
+}
+
+.edit-form .btn {
+    background-color: #0666eb;     
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+    height: 35px;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.edit-form .btn:hover, .edit-form .btn:focus {
+    background-color: #0666eb;     
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+    height: 35px;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.edit-form a {
+	color: #0666eb;
+	text-decoration: none;
+}
+
+.edit-form a:hover {
+	text-decoration: none;
+}
+
+.edit-form form a {
+	color: #0666eb;
+	text-decoration: none;
+}	
+
+.edit-form form a:hover {
+	text-decoration: none;
+}
+
+.edit-form .hint-text  {
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+.edit-form input {
+    background-color: #ffffff;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    color: #808080;
+    margin-bottom: 8px;
+    padding: 7px 7px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.edit-form textarea {
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  color: #808080;
+  margin-bottom: 8px;
+  padding: 7px 7px;
+  width: 100%;
+  font-size: 12px;
 }
 
 .separator span {
@@ -1058,6 +1171,7 @@ img {
 
   overflow: hidden;
   position: relative;
+  background-color: #ffffff;
 }
 .profile-button__picture::after {
   content: '';
@@ -1244,13 +1358,18 @@ img {
     line-height: 1.8;
     border: 0.1rem solid #dbdbdb;
     border-radius: 0.3rem;
-    padding: 0 2.4rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin-left: 2rem;
+    margin-bottom: 10px;
 }
 
 .profile-settings-btn {
     font-size: 2rem;
     margin-left: 1rem;
+    margin-bottom: 10px;
 }
 
 .profile-stats {
