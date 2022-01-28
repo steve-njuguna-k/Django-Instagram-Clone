@@ -1,0 +1,16 @@
+{% extends "Base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% include 'Navbar.html' %}
+    </div>
+    
+    {% block footer %}
+	<div class="container">
+		<div id="footer">
+			<p class="text-center text-md-center" style="font-size: small;">© 2022 Django Instagram Clone</p>
+		</div>
+	</div>
+	{% endblock %}
+{% endblock %}
