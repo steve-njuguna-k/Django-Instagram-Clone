@@ -2,11 +2,10 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 
 # Create your views here.
-def Login(request):
-    return render(request, 'Login.html')
-
 def Register(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -37,14 +36,36 @@ def Register(request):
 
     return render(request, 'Register.html')
 
+def Login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if not User.objects.filter(username=username).exists():
+            messages.error(request, '⚠️ Username Does Not Exist! Choose Another One')
+            return redirect('Login')
+
+        if user is None:
+            messages.error(request, '⚠️ Username or Password Is Incorrect!! Please Try Again')
+            return redirect('Login')
+
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('Profile'))
+        
+    return render(request, 'Login.html')
+
+@login_required(login_url='Login')
+def Logout(request):
+    return render(request, 'Login.html')
+
 @login_required(login_url='Login')
 def Home(request):
+
     return render(request, 'Index.html')
 
 @login_required(login_url='Login')
 def Profile(request):
     return render(request, 'Profile.html')
-
-@login_required(login_url='Login')
-def Logout(request):
-    return render(request, 'Login.html')

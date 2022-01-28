@@ -229,14 +229,32 @@
                 />
             </svg>
             </a>
-            <a href="{% url 'Profile'%}" name = 'Profile'>
-                <button class="profile-button">
-                    <div class="profile-button__border"></div>
-                    <div class="profile-button__picture">
-                        <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
-                    </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                  Dropdown button
                 </button>
-            </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="{% url 'Logout' %}" name="Logout">Logout</a>
+                </div>
+            </div>
+            <!-- <div  class="dropdown">
+                <a href="{% url 'Profile'%}" name = 'Profile'>
+                    <button class="profile-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                        Dropdown button>
+                        <div class="profile-button__border"></div>
+                        <div class="profile-button__picture">
+                            <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+                        </div>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                </a>
+            </div> -->
         </div>
     </nav>
 </header>
