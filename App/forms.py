@@ -19,3 +19,12 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_image', 'bio']
+
+class PasswordChangeForm(forms.ModelForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', "placeholder" : "Old Password",}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', "placeholder" : "New Password",}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', "placeholder" : "Confirm Password",}))
+
+    class Meta:
+        model = User
+        fields = ['new_password1']

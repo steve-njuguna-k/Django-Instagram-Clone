@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from .forms import UpdateUserForm, UpdateProfileForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 def Register(request):
@@ -94,3 +96,20 @@ def EditProfile(request, username):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'Edit Profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+@login_required(login_url='Login')
+def Settings(request, username):
+    username = User.objects.filter(username=username)
+    if request.method == "POST":
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, '✅ Your Password Has Been Updated Successfully!')
+            return redirect("Profile")
+        else:
+            messages.error(request, "⚠️ Your Password Wasn't Updated!")
+            return redirect("Settings", username=username)
+    else:
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        return render(request, "Settings.html", {'form': form})
