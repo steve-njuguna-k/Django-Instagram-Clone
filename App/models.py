@@ -92,7 +92,7 @@ class Category(models.Model):
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 
     def __str__(self):
-        return self.caption
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -103,7 +103,7 @@ class County(models.Model):
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 
     def __str__(self):
-        return self.caption
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Counties'
