@@ -157,15 +157,17 @@ def Settings(request, username):
 def AddPost(request):
     form = AddPostForm()
     if request.method == "POST":
-        form = AddPostForm(request.POST, request.FILES, instance=request.user)
+        form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             messages.success(request, '✅ Your Post Was Created Successfully!')
             return redirect('Profile')
         else:
             messages.error(request, "⚠️ Your Post Wasn't Created!")
             return redirect('AddPost')
     else:
-        form = AddPostForm(request.POST, request.FILES, instance=request.user)
+        form = AddPostForm()
 
     return render(request, 'Add Post.html', {'form': form})

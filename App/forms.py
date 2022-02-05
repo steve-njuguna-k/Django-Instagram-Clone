@@ -21,10 +21,10 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['profile_image', 'bio']
 
 class AddPostForm(forms.ModelForm):
-    post_image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    title = forms.CharField(max_length=50, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Caption'}))
-    caption = forms.CharField(max_length=50, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Caption'}))
+    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    title = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}))
+    caption = forms.CharField(max_length=2200, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Caption'}))
 
     class Meta:
         model = Post
-        fields = ['post_image', 'title', 'caption']
+        fields = ['image', 'title', 'caption']

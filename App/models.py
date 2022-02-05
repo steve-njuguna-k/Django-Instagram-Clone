@@ -18,7 +18,7 @@ class Profile(models.Model):
         verbose_name_plural = 'Profiles'
 
 class Post(models.Model):
-    image = models.ImageField(upload_to='Post-Pics', default='', verbose_name='Post Image', null=False)
+    image = models.ImageField(upload_to='Post-Pics', verbose_name='Post Image', null=False)
     title = models.CharField(max_length=500, verbose_name='Caption', null=False)
     caption = models.CharField(max_length=2200, verbose_name='Caption', null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')

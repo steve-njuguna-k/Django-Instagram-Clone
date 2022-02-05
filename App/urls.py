@@ -13,7 +13,4 @@ urlpatterns = [
     path('post/add', views.AddPost, name="AddPost"),
     path('logout', views.Logout, name="Logout"),
     path('activateuser/<uidb64>/<token>',views.ActivateAccount, name = 'ActivateAccount'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
