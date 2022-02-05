@@ -25,8 +25,19 @@ class Post(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    @classmethod
+    def update_caption(cls, id, title, caption, author):
+        update = cls.objects.filter(id = id).update(title = title , caption = caption, author = author)
+        return update
+
     def __str__(self):
-        return self.caption
+        return self.title
 
     class Meta:
         verbose_name_plural = 'Posts'
