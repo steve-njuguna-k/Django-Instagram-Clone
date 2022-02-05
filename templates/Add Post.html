@@ -1,0 +1,42 @@
+{% extends "Base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% include 'Navbar.html' %}
+    </div>
+
+    <div class="container-fluid notification">
+        <center>
+            {% if messages %}
+                {% for message in messages %} 
+                <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
+                    {{message}} <a href="{% url 'Profile' %}" name='Profile'><b>Back To Profile</b></a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %} 
+            {% endif %}
+        </center>
+    </div>
+
+    <div class="edit-form">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.post_image }}
+            {{ form.title }}
+            {{ form.caption }}
+            <button type="submit" class="btn btn-blue btn-block btn-sm">Create</button>
+        </form>
+    </div>
+    <!-- End of container -->
+    
+    {% block footer %}
+        <div class="container">
+            <div id="footer">
+                <p class="text-center text-md-center" style="font-size: small;">© 2022 Django Instagram Clone</p>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

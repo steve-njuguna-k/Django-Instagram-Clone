@@ -10,6 +10,7 @@ urlpatterns = [
     path('profile', views.Profile, name="Profile"),
     path('profile/<str:username>/edit', views.EditProfile, name="EditProfile"),
     path('profile/<str:username>/settings', views.Settings, name="Settings"),
+    path('post/add', views.AddPost, name="AddPost"),
     path('logout', views.Logout, name="Logout")
 ]
 

@@ -1,10 +1,11 @@
+from ast import Add
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from .forms import UpdateUserForm, UpdateProfileForm
+from .forms import UpdateUserForm, UpdateProfileForm, AddPostForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
@@ -113,3 +114,20 @@ def Settings(request, username):
     else:
         form = PasswordChangeForm(data=request.POST, user=request.user)
         return render(request, "Settings.html", {'form': form})
+
+@login_required(login_url='Login')
+def AddPost(request):
+    form = AddPostForm()
+    if request.method == "POST":
+        form = AddPostForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Your Post Was Created Successfully!')
+            return redirect('Profile')
+        else:
+            messages.error(request, "⚠️ Your Post Wasn't Created!")
+            return redirect('AddPost')
+    else:
+        form = AddPostForm(request.POST, request.FILES, instance=request.user)
+
+    return render(request, 'Add Post.html', {'form': form})
