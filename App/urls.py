@@ -11,7 +11,8 @@ urlpatterns = [
     path('profile/<str:username>/edit', views.EditProfile, name="EditProfile"),
     path('profile/<str:username>/settings', views.Settings, name="Settings"),
     path('post/add', views.AddPost, name="AddPost"),
-    path('logout', views.Logout, name="Logout")
+    path('logout', views.Logout, name="Logout"),
+    path('activateuser/<uidb64>/<token>',views.ActivateAccount, name = 'ActivateAccount'),
 ]
 
 if settings.DEBUG:

@@ -8,6 +8,13 @@ from django.urls import reverse
 from .forms import UpdateUserForm, UpdateProfileForm, AddPostForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 
 # Create your views here.
 def Register(request):
@@ -33,12 +40,40 @@ def Register(request):
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email)
         user.set_password(password1)
+        user.is_active = False
         user.save()
 
-        messages.success(request, '✅ Regristration Successful! You can now log in.')
+        current_site = get_current_site(request)
+        subject = 'Activate Your InstaPics Account'
+        message = render_to_string('Account Activation Email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+        })
+        user.email_user(subject, message)
+
+        messages.success(request, '✅ Regristration Successful! An Activation Link Has Been Sent To Your Email')
         return redirect('Register')
 
     return render(request, 'Register.html')
+
+def ActivateAccount(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.profile.email_confirmed = True
+        user.save()
+        messages.success(request, ('✅ Email Verified! You can now Log in'))
+        return redirect('Login')
+    else:
+        messages.error(request, ('⚠️ The confirmation link was invalid, possibly because it has already been used.'))
+        return redirect('Login')
 
 def Login(request):
     if request.method == 'POST':
@@ -47,12 +82,16 @@ def Login(request):
 
         user = authenticate(username=username, password=password)
 
+        # if user and not user.profile.email_confirmed:
+        #     messages.error(request, '⚠️ Email is not verified, please check your inbox')
+        #     return render(request, 'Login.html')
+
         if not User.objects.filter(username=username).exists():
             messages.error(request, '⚠️ Username Does Not Exist! Choose Another One')
             return redirect('Login')
 
         if user is None:
-            messages.error(request, '⚠️ Username or Password Is Incorrect!! Please Try Again')
+            messages.error(request, '⚠️ Username/Password Is Incorrect or Account Is Not Activated!! Please Try Again')
             return redirect('Login')
 
         if user is not None:
@@ -66,7 +105,6 @@ def Logout(request):
     logout(request)
     messages.success(request, '✅ Successfully Logged Out!')
     return redirect(reverse('Login'))
-
 
 @login_required(login_url='Login')
 def Home(request):
