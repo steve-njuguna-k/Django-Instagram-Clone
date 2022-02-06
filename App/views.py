@@ -149,7 +149,7 @@ def Settings(request, username):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, '✅ Your Password Has Been Updated Successfully!')
-            return redirect("Profile")
+            return redirect("Profile", username=username)
         else:
             messages.error(request, "⚠️ Your Password Wasn't Updated!")
             return redirect("Settings", username=username)
@@ -157,8 +157,12 @@ def Settings(request, username):
         form = PasswordChangeForm(data=request.POST, user=request.user)
         return render(request, "Settings.html", {'form': form})
 
+def SingleImage(request, title):
+    image = Post.objects.filter(title=title)
+    return render(request, 'Index.html', {'image': image})
+
 @login_required(login_url='Login')
-def AddPost(request):
+def AddNewPost(request):
     form = AddPostForm()
     if request.method == "POST":
         form = AddPostForm(request.POST, request.FILES)
@@ -170,12 +174,7 @@ def AddPost(request):
             return redirect('Profile')
         else:
             messages.error(request, "⚠️ Your Post Wasn't Created!")
-            return redirect('AddPost')
+            return redirect('AddNewPost')
     else:
         form = AddPostForm()
-
-    return render(request, 'Add Post.html', {'form': form})
-
-def SingleImage(request, title):
-    image = Post.objects.filter(title=title)
-    return render(request, 'Index.html', {'image': image})
+    return render(request, 'Add Post.html', {'form':form})
