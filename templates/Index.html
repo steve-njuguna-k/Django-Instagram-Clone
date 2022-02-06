@@ -31,7 +31,9 @@
                 
                             <div class="post__content">
                                 <div class="post__medias">
-                                    <img class="post__media" src="{{ post.image.url }}" alt="Post Content"/>
+                                    <a href="#" data-toggle="modal" data-target="#exampleModal">
+                                        <img class="post__media" src="{{ post.image.url }}" alt="Post Content"/>
+                                    </a>
                                 </div>
                             </div>
                 
@@ -256,5 +258,50 @@
           </section>
         </section>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-9 col-lg-9">
+                        <!-- <a href="" name="SingleImage">
+                            <img id="img{{image.id}}" src="{{image.image.url}}" class="fluid img-thumbnail" alt="Image" style="cursor:pointer">
+                        </a> -->
+                    </div>
+                    <div class="col-md-3">
+                        <!-- <h4 class ="desc text-light">Location</h4>
+                        <p class="text-brown">{{image.location}}</p>
+                        <h4 class ="desc text-light">Category</h4>
+                        <p class="text-brown">{{image.category}}</p>
+                        <h4 class ="desc text-light">Date Created</h4>
+                        <p class="text-brown">{{image.date_created}}</p>
+                        <h4 class ="desc text-light">Last Updated</h4>
+                        <p class="text-brown">{{image.date_updated}}</p>
+                        <h4 class ="desc text-light">Uploaded By</h4>
+                        <p class="text-brown">{{image.author.first_name}} {{image.author.last_name}}</p> -->
+                    </div>
+                    <div>
+                        <br>
+                        <!-- <p class="desc text-light" style="margin-left: 20px; margin-right: 10px;">{{image.caption}}</p> -->
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <!-- <input type="text" class="form-control" id="url" value="{{ image.image.url }}" aria-label="Recipient's username" aria-describedby="button-addon2" readonly>
+                    <div class="input-group-append">
+                      <button class="btn btn-brown" type="button"value="{{ image.image.url }}" onclick="copyToClipboard(this.value)">Copy Image URL To Clipboard</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
     
 {% endblock %}
