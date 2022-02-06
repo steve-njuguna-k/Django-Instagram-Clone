@@ -84,29 +84,85 @@
                     <div class="row">
                         {% for image in images %}
                             <div class="col-sm-4">
-                                <div class="gallery-item" tabindex="0">
+                                <a href="{{ image.title }}" data-toggle="modal" data-target="#exampleModal{{ image.id }}">
+                                    <div class="gallery-item" tabindex="0">
+                                        <div class="post__medias">
+
+                                            <img src="{{ image.image.url }}" class="gallery-image" alt="">
+
+                                        </div>
+                        
+                                        <div class="gallery-item-info">
+                        
+                                            <ul>
+                                                <li class="gallery-item-likes"><span class="visually-hidden"></span> {{ image.title  }}</li>
+                                            </ul>
             
-                                    <img src="{{ image.image.url }}" class="gallery-image" alt="">
-                    
-                                    <div class="gallery-item-info">
-                    
-                                        <ul>
-                                            <li class="gallery-item-likes"><span class="visually-hidden"></span> {{ image.title  }}</li>
-                                        </ul>
-        
-                                        <!-- <ul>
-                                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
-                                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
-                                        </ul> -->
-                    
+                                            <!-- <ul>
+                                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
+                                                <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+                                            </ul> -->
+                        
+                                        </div>
+                        
                                     </div>
-                    
-                                </div>
+                                </a>
                             </div>
                         {% endfor %}
                     </div>
-        
 
+                    <!-- Modal -->
+                    {% for image in images %}
+                    <div class="modal fade" id="exampleModal{{ image.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel" style="margin-left: 10px;"><b>{{ image.title }}</b></h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <img id="img{{image.id}}" src="{{image.image.url}}" class="fluid img-thumbnail" alt="Image" style="cursor:pointer">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="d-flex flex-row user-info">
+                                            <a href="{% url 'Profile' user.username %}">
+                                                <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
+                                            </a>
+                                            <div class="d-flex flex-column justify-content-start ml-2">
+                                                <a href="{% url 'Profile' user.username %}">
+                                                    <span class="d-block font-weight-bold name">{{ image.author.username }}</span>
+                                                </a>
+                                                <span class="date text-black-50" style="font-size: 13px;">{{ image.author.first_name }} {{ image.author.last_name }}</span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="image__description">
+                                            <span>
+                                                <a class="image__name--underline" href="{% url 'Profile' user.username %}" ><b>{{ image.author.username }}</b></a>
+                                                {{ image.caption }}
+                                            </span>
+                                        </div>
+                                        <br>
+                                        <span class="image__date-time"><i class="fas fa-calendar-alt"></i> {{ image.date_created }}</span>
+                                    </div>
+                                    <div>
+                                        <br>
+                                        
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+        
                 {% else %}
 
                 <div class="col-sm-12" style="margin-top: 15px;">

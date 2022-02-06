@@ -31,7 +31,7 @@
                 
                             <div class="post__content">
                                 <div class="post__medias">
-                                    <a href="{{ post.title }}" data-toggle="modal" data-toggle="modal" data-target="#exampleModal">
+                                    <a href="{{ post.title }}" data-toggle="modal" data-target="#exampleModal{{ post.id }}">
                                         <img class="post__media" src="{{ post.image.url }}" alt="Post Content"/>
                                     </a>
                                 </div>
@@ -117,7 +117,7 @@
                                         <a href="#" class="post__likes-avatar">
                                             <img src="https://www.pinclipart.com/picdir/middle/148-1486972_mystery-man-avatar-circle-clipart.png" alt="User Picture" />
                                         </a>
-                                        <span>Liked by <a class="post__name--underline" href="#">user123</a> and <a href="#">73 others</a></span>
+                                        <span>Liked by <a class="post__name--underline" href="#"><b>johndoe</b></a> and <a href="#"><b>100 others</b></a></span>
                                     </div>
                 
                                     <div class="post__description">
@@ -261,7 +261,7 @@
 
     <!-- Modal -->
     {% for post in posts %}
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal{{ post.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -272,7 +272,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-9 col-lg-9">
+                        <div class="col-md-9">
                             <img id="img{{post.id}}" src="{{post.image.url}}" class="fluid img-thumbnail" alt="Image" style="cursor:pointer">
                         </div>
                         <div class="col-md-3">
