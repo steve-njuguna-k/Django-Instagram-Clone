@@ -178,3 +178,13 @@ def AddNewPost(request, username):
     else:
         form = AddPostForm()
     return render(request, 'Add Post.html', {'form':form})
+
+def Search(request):
+    images = Post.objects.filter(author = request.user).all()
+    images_count = Post.objects.filter(author = request.user).count()
+    if request.method == 'POST':
+        search = request.POST['imageSearch']
+        users = User.objects.filter(username__icontains = search).all()
+        return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count})
+    else:
+        return render(request, 'Search Results.html')

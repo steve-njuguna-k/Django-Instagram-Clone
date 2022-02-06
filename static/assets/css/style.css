@@ -8,13 +8,11 @@ p{
 }
 
 a{
-  font-size: 14px;
   text-decoration: none;
   color: #000000;
 }
 
 a:hover{
-  font-size: 14px;
   text-decoration: none;
   color: #000000;
 }
@@ -1226,6 +1224,14 @@ img {
 .side-menu__footer-item,
 .side-menu__footer-link,
 .side-menu__footer-copyright {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-light);
+  text-decoration: none;
+}
+.side-menu__footer-item:hover,
+.side-menu__footer-link:hover,
+.side-menu__footer-copyright:hover {
   font-size: 11px;
   font-weight: 400;
   color: var(--text-light);
