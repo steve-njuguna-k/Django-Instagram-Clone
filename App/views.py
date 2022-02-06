@@ -1,4 +1,3 @@
-from ast import Add
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -115,7 +114,7 @@ def Home(request):
 @login_required(login_url='Login')
 def UserProfile(request, username):
     profile = User.objects.get(username=username)
-    profile_details = Profile.objects.filter(user = profile.id)
+    profile_details = Profile.objects.get(user = profile.id)
     images = Post.objects.filter(author = profile.id).all()
     images_count = Post.objects.filter(author = profile.id).count()
     return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
@@ -123,7 +122,7 @@ def UserProfile(request, username):
 @login_required(login_url='Login')
 def MyProfile(request, username):
     profile = User.objects.get(username=username)
-    profile_details = Profile.objects.filter(user = profile.id)
+    profile_details = Profile.objects.get(user = profile.id)
     images = Post.objects.filter(author = profile.id).all()
     images_count = Post.objects.filter(author = profile.id).count()
     return render(request, 'My Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
@@ -139,7 +138,7 @@ def EditProfile(request, username):
             user_form.save()
             profile_form.save()
             messages.success(request, '✅ Your Profile Has Been Updated Successfully!')
-            return redirect('Profile', username=username)
+            return redirect('MyProfile', username=username)
         else:
             messages.error(request, "⚠️ Your Profile Wasn't Updated!")
             return redirect('EditProfile', username=username)
@@ -158,7 +157,7 @@ def Settings(request, username):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, '✅ Your Password Has Been Updated Successfully!')
-            return redirect("Profile", username=username)
+            return redirect("MyProfile", username=username)
         else:
             messages.error(request, "⚠️ Your Password Wasn't Updated!")
             return redirect("Settings", username=username)
@@ -178,9 +177,10 @@ def AddNewPost(request, username):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            post.profile = request.user.profile
             post.save()
             messages.success(request, '✅ Your Post Was Created Successfully!')
-            return redirect('Profile', username=username)
+            return redirect('MyProfile', username=username)
         else:
             messages.error(request, "⚠️ Your Post Wasn't Created!")
             return redirect('AddNewPost', username=username)

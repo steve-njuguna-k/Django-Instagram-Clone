@@ -124,11 +124,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="d-flex flex-row user-info">
-                                            <a href="{% url 'Profile' user.username %}">
+                                            <a href="{% url 'UserProfile' user.username %}">
                                                 <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
                                             </a>
                                             <div class="d-flex flex-column justify-content-start ml-2">
-                                                <a href="{% url 'Profile' user.username %}">
+                                                <a href="{% url 'UserProfile' user.username %}">
                                                     <span class="d-block font-weight-bold name">{{ image.author.username }}</span>
                                                 </a>
                                                 <span class="date text-black-50" style="font-size: 13px;">{{ image.author.first_name }} {{ image.author.last_name }}</span>
@@ -137,7 +137,7 @@
                                         <br>
                                         <div class="image__description">
                                             <span>
-                                                <a class="image__name--underline" href="{% url 'Profile' user.username %}" ><b>{{ image.author.username }}</b></a>
+                                                <a class="image__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ image.author.username }}</b></a>
                                                 {{ image.caption }}
                                             </span>
                                         </div>
