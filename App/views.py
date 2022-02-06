@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
+from .models import Post
 
 # Create your views here.
 def Register(request):
@@ -113,7 +114,9 @@ def Home(request):
 
 @login_required(login_url='Login')
 def Profile(request):
-    return render(request, 'Profile.html')
+    images = Post.objects.filter(author = request.user)
+    images_count = Post.objects.filter(author = request.user).count()
+    return render(request, 'Profile.html', {'images':images, 'images_count':images_count})
 
 @login_required(login_url='Login')
 def EditProfile(request, username):
