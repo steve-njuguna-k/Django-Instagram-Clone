@@ -109,7 +109,7 @@ def Logout(request):
 
 @login_required(login_url='Login')
 def Home(request):
-    posts = Post.objects.all()
+    posts = Post.objects.order_by('-date_created').all()
     return render(request, 'Index.html', {'posts':posts})
 
 @login_required(login_url='Login')
@@ -162,7 +162,7 @@ def SingleImage(request, title):
     return render(request, 'Index.html', {'image': image})
 
 @login_required(login_url='Login')
-def AddNewPost(request):
+def AddNewPost(request, username):
     form = AddPostForm()
     if request.method == "POST":
         form = AddPostForm(request.POST, request.FILES)
@@ -171,10 +171,10 @@ def AddNewPost(request):
             post.author = request.user
             post.save()
             messages.success(request, '✅ Your Post Was Created Successfully!')
-            return redirect('Profile')
+            return redirect('Profile', username=username)
         else:
             messages.error(request, "⚠️ Your Post Wasn't Created!")
-            return redirect('AddNewPost')
+            return redirect('AddNewPost', username=username)
     else:
         form = AddPostForm()
     return render(request, 'Add Post.html', {'form':form})
