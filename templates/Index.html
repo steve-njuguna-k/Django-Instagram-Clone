@@ -128,6 +128,13 @@
                                     </div>
                 
                                     <span class="post__date-time">{{ post.date_created }}</span>
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                      <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                                        <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ user.profile.profile_image.url }}" width="38">
+                                        <textarea type="text" class="form-control mr-3" name="comment" placeholder="Add comment" rows="1"></textarea>
+                                        <button class="btn btn-primary" type="submit">Comment</button>
+                                      </div>
                                 </div>
                             </div>
                         </article>

@@ -42,3 +42,18 @@ class Post(models.Model):
 
     class Meta:
         verbose_name_plural = 'Posts'
+
+class Like(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    comment = models.CharField(max_length=2200, verbose_name='Comment', null=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.comment
+
+    class Meta:
+        verbose_name_plural = 'Comment'
