@@ -31,7 +31,7 @@
                 
                             <div class="post__content">
                                 <div class="post__medias">
-                                    <a href="#" data-toggle="modal" data-target="#exampleModal">
+                                    <a href="{{ post.title }}" data-toggle="modal" data-toggle="modal" data-target="#exampleModal">
                                         <img class="post__media" src="{{ post.image.url }}" alt="Post Content"/>
                                     </a>
                                 </div>
@@ -260,48 +260,55 @@
     </main>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-9 col-lg-9">
-                        <!-- <a href="" name="SingleImage">
-                            <img id="img{{image.id}}" src="{{image.image.url}}" class="fluid img-thumbnail" alt="Image" style="cursor:pointer">
-                        </a> -->
+    {% for post in posts %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel" style="margin-left: 10px;"><b>{{ post.title }}</b></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-9">
+                            <img id="img{{post.id}}" src="{{post.image.url}}" class="fluid img-thumbnail" alt="Image" style="cursor:pointer">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex flex-row user-info">
+                                <a href="{% url 'Profile' user.username %}">
+                                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
+                                </a>
+                                <div class="d-flex flex-column justify-content-start ml-2">
+                                    <a href="{% url 'Profile' user.username %}">
+                                        <span class="d-block font-weight-bold name">{{ post.author.username }}</span>
+                                    </a>
+                                    <span class="date text-black-50" style="font-size: 13px;">{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="post__description">
+                                <span>
+                                    <a class="post__name--underline" href="{% url 'Profile' user.username %}" ><b>{{ post.author.username }}</b></a>
+                                    {{ post.caption }}
+                                </span>
+                            </div>
+                            <br>
+                            <span class="post__date-time"><i class="fas fa-calendar-alt"></i> {{ post.date_created }}</span>
+                        </div>
+                        <div>
+                            <br>
+                            
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <!-- <h4 class ="desc text-light">Location</h4>
-                        <p class="text-brown">{{image.location}}</p>
-                        <h4 class ="desc text-light">Category</h4>
-                        <p class="text-brown">{{image.category}}</p>
-                        <h4 class ="desc text-light">Date Created</h4>
-                        <p class="text-brown">{{image.date_created}}</p>
-                        <h4 class ="desc text-light">Last Updated</h4>
-                        <p class="text-brown">{{image.date_updated}}</p>
-                        <h4 class ="desc text-light">Uploaded By</h4>
-                        <p class="text-brown">{{image.author.first_name}} {{image.author.last_name}}</p> -->
-                    </div>
-                    <div>
-                        <br>
-                        <!-- <p class="desc text-light" style="margin-left: 20px; margin-right: 10px;">{{image.caption}}</p> -->
+                    <div class="input-group mb-3">
+                        
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <!-- <input type="text" class="form-control" id="url" value="{{ image.image.url }}" aria-label="Recipient's username" aria-describedby="button-addon2" readonly>
-                    <div class="input-group-append">
-                      <button class="btn btn-brown" type="button"value="{{ image.image.url }}" onclick="copyToClipboard(this.value)">Copy Image URL To Clipboard</button>
-                    </div> -->
-                </div>
+            </div>
             </div>
         </div>
-        </div>
-    </div>
+    {% endfor %}
     
 {% endblock %}

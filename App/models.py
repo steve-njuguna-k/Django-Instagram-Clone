@@ -41,21 +41,3 @@ class Post(models.Model):
 
     class Meta:
         verbose_name_plural = 'Posts'
-
-class Likes(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Image Post')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
-    date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
-    date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
-
-    class Meta:
-        verbose_name_plural = 'Likes'
-
-class Comments(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Image Post')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
-    date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
-    date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
-
-    class Meta:
-        verbose_name_plural = 'Comments'

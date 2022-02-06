@@ -175,3 +175,7 @@ def AddPost(request):
         form = AddPostForm()
 
     return render(request, 'Add Post.html', {'form': form})
+
+def SingleImage(request, title):
+    image = Post.objects.filter(title=title)
+    return render(request, 'Index.html', {'image': image})
