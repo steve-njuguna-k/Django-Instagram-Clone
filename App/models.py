@@ -22,6 +22,7 @@ class Post(models.Model):
     title = models.CharField(max_length=500, verbose_name='Caption', null=False)
     caption = models.CharField(max_length=2200, verbose_name='Caption', null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Profile')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 
@@ -32,8 +33,8 @@ class Post(models.Model):
         self.delete()
 
     @classmethod
-    def update_caption(cls, id, title, caption, author):
-        update = cls.objects.filter(id = id).update(title = title , caption = caption, author = author)
+    def update_caption(cls, id, title, caption, author, profile):
+        update = cls.objects.filter(id = id).update(title = title , caption = caption, author = author, profile = profile)
         return update
 
     def __str__(self):

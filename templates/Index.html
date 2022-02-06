@@ -14,10 +14,10 @@
                         <article class="post">
                             <div class="post__header">
                                 <div class="post__profile">
-                                    <a href="{% url 'Profile' user.username %}" class="post__avatar">
-                                        <img src="{{ user.profile.profile_image.url }}" alt="User Picture" />
+                                    <a href="user/{{ post.author.username }}" class="post__avatar">
+                                      <img class="rounded-circle" src="{{ post.author.profile_image.url }}" alt="User Picture" />
                                     </a>
-                                    <a href="{% url 'Profile' user.username %}" class="post__user">{{ post.author.username }}</a>
+                                    <a href="user/{{ post.author.username }}" class="post__user">{{ post.author.username }}</a>
                                 </div>
                 
                                 <button class="post__more-options">
@@ -122,7 +122,7 @@
                 
                                     <div class="post__description">
                                         <span>
-                                            <a class="post__name--underline" href="{% url 'Profile' user.username %}" ><b>{{ post.author.username }}</b></a>
+                                            <a class="post__name--underline" href="user/{{ post.author.username }}" ><b>{{ post.author.username }}</b></a>
                                             {{ post.caption|slice:":100" }}
                                         </span>
                                     </div>
@@ -138,14 +138,14 @@
         <section class="side-menu">
             <div class="side-menu__user-profile">
               <a
-                href="{% url 'Profile' user.username %}"
+                href="{% url 'UserProfile' user.username %}"
                 
                 class="side-menu__user-avatar"
               >
                 <img src="{{ user.profile.profile_image.url }}" alt="User Picture" />
               </a>
               <div class="side-menu__user-info">
-                <a href="{% url 'Profile' user.username %}" 
+                <a href="{% url 'UserProfile' user.username %}" 
                   >{{ user.username }}</a
                 >
                 <span>{{ user.first_name }} {{ user.last_name }}</span>
@@ -277,11 +277,11 @@
                         </div>
                         <div class="col-md-3">
                             <div class="d-flex flex-row user-info">
-                                <a href="{% url 'Profile' user.username %}">
+                                <a href="{% url 'UserProfile' user.username %}">
                                     <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
                                 </a>
                                 <div class="d-flex flex-column justify-content-start ml-2">
-                                    <a href="{% url 'Profile' user.username %}">
+                                    <a href="{% url 'UserProfile' user.username %}">
                                         <span class="d-block font-weight-bold name">{{ post.author.username }}</span>
                                     </a>
                                     <span class="date text-black-50" style="font-size: 13px;">{{ post.author.first_name }} {{ post.author.last_name }}</span>
@@ -290,7 +290,7 @@
                             <br>
                             <div class="post__description">
                                 <span>
-                                    <a class="post__name--underline" href="{% url 'Profile' user.username %}" ><b>{{ post.author.username }}</b></a>
+                                    <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ post.author.username }}</b></a>
                                     {{ post.caption }}
                                 </span>
                             </div>

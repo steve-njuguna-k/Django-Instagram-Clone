@@ -119,7 +119,7 @@
                     </div>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{% url 'Profile' user.username %}" name="Profile" style="font-size: 14px;">Profile</a>
+                  <a class="dropdown-item" href="{% url 'MyProfile' user.username %}" name="MyProfile" style="font-size: 14px;">Profile</a>
                   <a class="dropdown-item" href="{% url 'Settings' user.username %}" name='Settings' style="font-size: 14px;">Settings</a>
                   <a class="dropdown-item" href="{% url 'Logout' %}" name="Logout" style="font-size: 14px;">Logout</a>
                 </div>

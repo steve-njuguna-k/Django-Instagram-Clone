@@ -1,0 +1,187 @@
+{% extends "Base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% include 'Navbar.html' %}
+    </div>
+
+    <div class="container-fluid notification">
+        <center>
+            {% if messages %}
+                {% for message in messages %} 
+                <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %} 
+            {% endif %}
+        </center>
+    </div>
+
+        <div class="container">
+    
+            <div class="profile">
+    
+                <div class="profile-image">
+                    {% if profile_details.profile_image %}
+                        <img class="rounded-circle" src="{{ profile_details.profile_image.url }}" alt="" height="180" width="180">
+                    {% else %}
+                        <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="" height="160" width="160">
+                    {% endif %}
+                </div>
+    
+                <div class="profile-user-settings">
+    
+                    <h1 class="profile-user-name">{{ profile.username }}</h1>
+    
+                </div>
+    
+                <div class="profile-stats">
+    
+                    <ul>
+                        <li><span class="profile-stat-count">{{ images_count }}</span> posts</li>
+                        <li><span class="profile-stat-count">0</span> followers</li>
+                        <li><span class="profile-stat-count">0</span> following</li>
+                    </ul>
+    
+                </div>
+    
+                <div class="profile-bio">
+    
+                    <p style="font-size: medium;"><b>{{ profile.first_name }} {{ profile.last_name }}</b><br>
+                        {% if profile_details.bio %}
+                            {{ profile_details.bio }}
+                        {% else %}
+                            <b></b>
+                        {% endif %}
+                    </p>
+    
+                </div>
+    
+            </div>
+            <!-- End of profile section -->
+    
+        </div>
+        <!-- End of container -->
+
+    
+        <div class="container">
+    
+            <div class="gallery">
+
+                {% if images %}
+        
+                    <div class="row">
+                        {% for image in images %}
+                            <div class="col-sm-4">
+                                <a href="{{ image.title }}" data-toggle="modal" data-target="#exampleModal{{ image.id }}">
+                                    <div class="gallery-item" tabindex="0">
+                                        <div class="post__medias">
+
+                                            <img src="{{ image.image.url }}" class="gallery-image" alt="">
+
+                                        </div>
+                        
+                                        <div class="gallery-item-info">
+                        
+                                            <ul>
+                                                <li class="gallery-item-likes"><span class="visually-hidden"></span> {{ image.title  }}</li>
+                                            </ul>
+            
+                                            <!-- <ul>
+                                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
+                                                <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+                                            </ul> -->
+                        
+                                        </div>
+                        
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Modal -->
+                    {% for image in images %}
+                    <div class="modal fade" id="exampleModal{{ image.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel" style="margin-left: 10px;"><b>{{ image.title }}</b></h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <img id="img{{image.id}}" src="{{image.image.url}}" class="fluid img-thumbnail" alt="Image" style="cursor:pointer">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="d-flex flex-row user-info">
+                                            <a href="{% url 'UserProfile' user.username %}">
+                                                <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
+                                            </a>
+                                            <div class="d-flex flex-column justify-content-start ml-2">
+                                                <a href="{% url 'UserProfile' user.username %}">
+                                                    <span class="d-block font-weight-bold name">{{ image.author.username }}</span>
+                                                </a>
+                                                <span class="date text-black-50" style="font-size: 13px;">{{ image.author.first_name }} {{ image.author.last_name }}</span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="image__description">
+                                            <span>
+                                                <a class="image__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ image.author.username }}</b></a>
+                                                {{ image.caption }}
+                                            </span>
+                                        </div>
+                                        <br>
+                                        <span class="image__date-time"><i class="fas fa-calendar-alt"></i> {{ image.date_created }}</span>
+                                    </div>
+                                    <div>
+                                        <br>
+                                        
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+        
+                {% else %}
+
+                <div class="col-sm-12" style="margin-top: 15px;">
+                    <center>
+                        <a href="{% url 'AddNewPost' user.username %}" name='AddNewPost'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"></path><path d="m8 11-3 4h11l-4-6-3 4z"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
+                            <h3 class="text-dark py-3"><b>Upload Your First Image</b></h3>
+                        </a>
+                    </center> 
+                </div>
+
+                {% endif %}
+
+            </div>
+            <!-- End of gallery -->
+    
+        </div>
+        <!-- End of container -->
+    
+    {% block footer %}
+        <footer class="page-footer">
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3 text-dark">
+                © Copyright 2022 InstaPics
+            </div>
+            <!-- Copyright -->
+        </footer>
+    {% endblock %}
+{% endblock %}

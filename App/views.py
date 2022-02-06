@@ -15,7 +15,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from .models import Post
+from .models import Post, Profile
 
 # Create your views here.
 def Register(request):
@@ -113,11 +113,20 @@ def Home(request):
     return render(request, 'Index.html', {'posts':posts})
 
 @login_required(login_url='Login')
-def Profile(request, username):
-    user = User.objects.filter(username=username)
-    images = Post.objects.filter(author = request.user).all()
-    images_count = Post.objects.filter(author = request.user).count()
-    return render(request, 'Profile.html', {'images':images, 'images_count':images_count})
+def UserProfile(request, username):
+    profile = User.objects.get(username=username)
+    profile_details = Profile.objects.filter(user = profile.id)
+    images = Post.objects.filter(author = profile.id).all()
+    images_count = Post.objects.filter(author = profile.id).count()
+    return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
+
+@login_required(login_url='Login')
+def MyProfile(request, username):
+    profile = User.objects.get(username=username)
+    profile_details = Profile.objects.filter(user = profile.id)
+    images = Post.objects.filter(author = profile.id).all()
+    images_count = Post.objects.filter(author = profile.id).count()
+    return render(request, 'My Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
 
 @login_required(login_url='Login')
 def EditProfile(request, username):
