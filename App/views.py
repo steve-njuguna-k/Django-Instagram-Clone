@@ -109,12 +109,13 @@ def Logout(request):
 
 @login_required(login_url='Login')
 def Home(request):
-
-    return render(request, 'Index.html')
+    posts = Post.objects.all()
+    return render(request, 'Index.html', {'posts':posts})
 
 @login_required(login_url='Login')
-def Profile(request):
-    images = Post.objects.filter(author = request.user)
+def Profile(request, username):
+    user = User.objects.filter(username=username)
+    images = Post.objects.filter(author = request.user).all()
     images_count = Post.objects.filter(author = request.user).count()
     return render(request, 'Profile.html', {'images':images, 'images_count':images_count})
 
@@ -129,7 +130,7 @@ def EditProfile(request, username):
             user_form.save()
             profile_form.save()
             messages.success(request, '✅ Your Profile Has Been Updated Successfully!')
-            return redirect('Profile')
+            return redirect('Profile', username=username)
         else:
             messages.error(request, "⚠️ Your Profile Wasn't Updated!")
             return redirect('EditProfile', username=username)
