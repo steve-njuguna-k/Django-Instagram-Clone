@@ -14,6 +14,7 @@ urlpatterns = [
     path('post/<str:title>', views.SingleImage, name="SingleImage"),
     path('profile/<str:username>/image/add', views.AddNewPost, name="AddNewPost"),
     path('logout', views.Logout, name="Logout"),
+    path('post/<int:id>/comment', views.AddComment, name="AddComment"),
     path('search-results', views.Search, name="Search"),
     path('activateuser/<uidb64>/<token>', views.ActivateAccount, name = 'ActivateAccount')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

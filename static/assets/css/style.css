@@ -1406,6 +1406,8 @@ img {
   background-color: #0666eb;
   padding-left: 20px;
   padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 3px;
 }
 
@@ -1413,6 +1415,8 @@ img {
   background-color: #0666eb;
   padding-left: 20px;
   padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 3px;
 }
 

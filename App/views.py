@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from .models import Post, Profile
+from .models import Post, Profile, Comment
 
 # Create your views here.
 def Register(request):
@@ -197,3 +197,16 @@ def Search(request):
         return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count})
     else:
         return render(request, 'Search Results.html')
+
+@login_required(login_url='Login')
+def AddComment(request, id):
+    post = Post.objects.get(id=id)
+    if request.method == "POST":
+        usercomment = request.POST['comment']
+        comment_obj = Comment.objects.create(opinion = usercomment, author = request.user, post = post)
+        comment_obj.save()
+        messages.success(request, '✅ Your Comment Was Created Successfully!')
+        return redirect('Home')
+    else:
+        messages.error(request, "⚠️ Your Comment Wasn't Created!")
+        return redirect('Home')

@@ -5,10 +5,23 @@
     <div class="container-fluid">
         {% include 'Navbar.html' %}
     </div>
-
     <main class="main-container">
         <section class="content-container">
             <div class="content">
+                <div class="container-fluid">
+                  <center>
+                      {% if messages %}
+                          {% for message in messages %} 
+                          <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
+                              {{message}}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          {% endfor %} 
+                      {% endif %}
+                  </center>
+                </div>
                 <div class="posts">
                     {% for post in posts %}
                         <article class="post">
@@ -128,13 +141,14 @@
                                     </div>
                 
                                     <span class="post__date-time">{{ post.date_created }}</span>
-                                    <form method="POST">
+                                    <form method="POST" action="{% url 'AddComment' post.id %}">
                                       {% csrf_token %}
                                       <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                                         <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ user.profile.profile_image.url }}" width="38">
-                                        <textarea type="text" class="form-control mr-3" name="comment" placeholder="Add comment" rows="1"></textarea>
-                                        <button class="btn btn-primary" type="submit">Comment</button>
+                                        <textarea class="form-control mr-3" rows="1" name="comment" placeholder="Your Comment" required></textarea>
+                                        <button class="btn btn-primary btn-lg" type="submit">Comment</button>
                                       </div>
+                                    </form>
                                 </div>
                             </div>
                         </article>
