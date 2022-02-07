@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from .models import Like, Post, Profile, Comment
+from .models import Follow, Like, Post, Profile, Comment
 
 # Create your views here.
 def Register(request):
@@ -109,7 +109,8 @@ def Logout(request):
 @login_required(login_url='Login')
 def Home(request):
     posts = Post.objects.order_by('-date_created').all()
-    return render(request, 'Index.html', {'posts':posts})
+    profiles = Profile.objects.all()
+    return render(request, 'Index.html', {'posts':posts, 'profiles':profiles})
 
 @login_required(login_url='Login')
 def UserProfile(request, username):
@@ -117,7 +118,9 @@ def UserProfile(request, username):
     profile_details = Profile.objects.get(user = profile.id)
     images = Post.objects.filter(author = profile.id).all()
     images_count = Post.objects.filter(author = profile.id)
-    return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
+    followers = Profile.get_followers(self=profile)
+    following = Profile.get_following(self=profile)
+    return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following})
 
 @login_required(login_url='Login')
 def MyProfile(request, username):
@@ -125,7 +128,9 @@ def MyProfile(request, username):
     profile_details = Profile.objects.get(user = profile.id)
     images = Post.objects.filter(author = profile.id).all()
     images_count = Post.objects.filter(author = profile.id)
-    return render(request, 'My Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
+    followers = Profile.get_followers(self=profile)
+    following = Profile.get_following(self=profile)
+    return render(request, 'My Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following})
 
 @login_required(login_url='Login')
 def EditProfile(request, username):
@@ -235,3 +240,23 @@ def PostLike(request,id):
             likeToadd.save()
             messages.success(request, '✅ You Successfully Liked The Post!')
             return redirect('Home')
+
+@login_required(login_url='Login')
+def FollowUser(request, username):
+    userTobefollowed = User.objects.get(username = username)
+    currentUser = request.user
+    if userTobefollowed.id == currentUser.id:
+        messages.error(request, "⚠️ You can't follow yourself!")
+        return redirect('UserProfile', username=username)
+    if not userTobefollowed:
+        return "User Does Not Exist!"
+    else:
+        follow = Follow.objects.filter(user = currentUser, following = userTobefollowed)
+        if follow:
+            messages.error(request, '⚠️ You Can Only Follow A User Once!')
+            return redirect('UserProfile', username=username)
+        else:
+            folowerToadd = Follow(user = currentUser, following = userTobefollowed)
+            folowerToadd.save()
+            messages.success(request, "✅ You Are Now Following This User!")
+            return redirect('UserProfile', username=username)

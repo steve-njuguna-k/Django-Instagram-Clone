@@ -15,6 +15,7 @@ urlpatterns = [
     path('profile/<str:username>/image/add', views.AddNewPost, name="AddNewPost"),
     path('post/<int:id>/like', views.PostLike, name="PostLike"),
     path('logout', views.Logout, name="Logout"),
+    path('follow/user/<str:username>', views.FollowUser, name="FollowUser"),
     path('post/<int:id>/comment', views.AddComment, name="AddComment"),
     path('search-results', views.Search, name="Search"),
     path('activateuser/<uidb64>/<token>', views.ActivateAccount, name = 'ActivateAccount')

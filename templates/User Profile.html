@@ -37,7 +37,7 @@
     
                     <h1 class="profile-user-name">{{ profile.username }}</h1>
 
-                    <a href="{% url 'EditProfile' user.username %}" name='EditProfile'>
+                    <a href="{% url 'FollowUser' profile.username %}">
                         <button class="btn profile-edit-btn">Follow</button>
                     </a>
     
@@ -55,8 +55,18 @@
                                 <span class="profile-stat-count">{{ images_count|length }}</span> posts
                             {% endif %}
                         </li>
-                        <li><span class="profile-stat-count">0</span> followers</li>
-                        <li><span class="profile-stat-count">0</span> following</li>
+                        <li>
+                            {% if followers|length == 0 %}
+                            <span class="profile-stat-count">{{ followers|length }}</span> follower
+                            {% elif followers|length == 1 %}
+                                <span class="profile-stat-count">{{ followers|length }}</span> follower
+                            {% else %}
+                                <span class="profile-stat-count">{{ followers|length }}</span> followers
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="profile-stat-count">{{ following|length }}</span> following
+                        </li>
                     </ul>
     
                 </div>

@@ -39,6 +39,10 @@
                 <div class="profile-user-settings">
     
                     <h1 class="profile-user-name">{{ user.username }}</h1>
+
+                    <a href="{% url 'EditProfile' user.username %}" name='EditProfile'>
+                        <button class="btn profile-edit-btn">Follow</button>
+                    </a>
     
                 </div>
     

@@ -51,15 +51,25 @@
                     <ul style="padding-left: 0px;">
                         <li>
                             {% if images_count|length == 0 %}
-                            <span class="profile-stat-count">{{ images_count|length }}</span> post
+                                <span class="profile-stat-count">{{ images_count|length }}</span> post
                             {% elif images_count|length == 1 %}
-                            <span class="profile-stat-count">{{ images_count|length }}</span> post
+                                <span class="profile-stat-count">{{ images_count|length }}</span> post
                             {% else %}
-                            <span class="profile-stat-count">{{ images_count|length }}</span> posts
+                                <span class="profile-stat-count">{{ images_count|length }}</span> posts
                             {% endif %}
                         </li>
-                        <li><span class="profile-stat-count">0</span> followers</li>
-                        <li><span class="profile-stat-count">0</span> following</li>
+                        <li>
+                            {% if followers|length == 0 %}
+                            <span class="profile-stat-count">{{ followers|length }}</span> follower
+                            {% elif followers|length == 1 %}
+                                <span class="profile-stat-count">{{ followers|length }}</span> follower
+                            {% else %}
+                                <span class="profile-stat-count">{{ followers|length }}</span> followers
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="profile-stat-count">{{ following|length }}</span> following
+                        </li>
                     </ul>
     
                 </div>
