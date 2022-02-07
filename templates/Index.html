@@ -68,7 +68,7 @@
                                             />
                                         </svg>
                                     </button>
-                                    <button class="post__button">
+                                    <button class="post__button" data-toggle="modal" data-target="#Modal{{ post.id }}">
                                         <svg
                                             width="24"
                                             height="24"
@@ -318,13 +318,54 @@
                             <br>
                             <span class="post__date-time"><i class="fas fa-calendar-alt"></i> {{ post.date_created }}</span>
                         </div>
-                        <div>
-                            <br>
-                            
-                        </div>
                     </div>
-                    <div class="input-group mb-3">
-                        
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Modal -->
+    {% for post in posts %}
+        <div class="modal fade" id="Modal{{ post.id }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h3 class="modal-title" id="ModalLabel" style="margin-left: 10px;"><b>{{ post.title }}</b></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <img id="img{{post.id}}" src="{{post.image.url}}" class="fluid img-thumbnail" alt="Image" style="cursor:pointer">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex flex-row user-info">
+                                <a href="{% url 'UserProfile' user.username %}">
+                                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
+                                </a>
+                                <div class="d-flex flex-column justify-content-start ml-2">
+                                    <a href="{% url 'UserProfile' user.username %}">
+                                        <span class="d-block font-weight-bold name">{{ post.author.username }}</span>
+                                    </a>
+                                    <span class="date text-black-50" style="font-size: 13px;">{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="post__description comments">
+                                <span>
+                                  <b>Comments</b>
+                                </span>
+                                {% for comment in comments %}
+                                <span>
+                                  <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ comment.author.username }}</b></a>
+                                  {{ comment.opinion }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

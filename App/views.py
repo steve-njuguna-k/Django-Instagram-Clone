@@ -165,9 +165,11 @@ def Settings(request, username):
         form = PasswordChangeForm(data=request.POST, user=request.user)
         return render(request, "Settings.html", {'form': form})
 
-def SingleImage(request, title):
-    image = Post.objects.filter(title=title)
-    return render(request, 'Index.html', {'image': image})
+def SingleImage(request, id):
+    image = Post.objects.filter(id=id)
+    comments = Comment.objects.all()
+    print(comments)
+    return render(request, 'Index.html', {'image': image, 'comments':comments})
 
 @login_required(login_url='Login')
 def AddNewPost(request, username):
