@@ -129,10 +129,16 @@
                 
                                 <div class="post__infos">
                                     <div class="post__likes">
-                                        <a href="#" class="post__likes-avatar">
-                                            <img src="https://www.pinclipart.com/picdir/middle/148-1486972_mystery-man-avatar-circle-clipart.png" alt="User Picture" />
-                                        </a>
-                                        <span>Liked by <a class="post__name--underline" href="#"><b>johndoe</b></a> and <a href="#"><b>100 others</b></a></span>
+                                      <a href="#" class="post__likes-avatar">
+                                        <img src="https://www.pinclipart.com/picdir/middle/148-1486972_mystery-man-avatar-circle-clipart.png" alt="User Picture" />
+                                      </a>
+                                        <span>
+                                          {% if likes == 1 %}
+                                            <b>Liked by {{ likes }} person</b>
+                                          {% else %}
+                                            <b>Liked by {{ likes }} others</b>
+                                          {% endif %}
+                                        </span>
                                     </div>
                 
                                     <div class="post__description">
@@ -173,7 +179,9 @@
                 >
                 <span>{{ user.first_name }} {{ user.last_name }}</span>
               </div>
-              <button class="side-menu__user-button">Switch</button>
+              <a href="{% url 'Logout' %}" name="Logout">
+                <button class="side-menu__user-button">Switch</button>
+              </a>
             </div>
   
             <div class="side-menu__suggestions-section">

@@ -166,10 +166,10 @@ def Settings(request, username):
         return render(request, "Settings.html", {'form': form})
 
 def SingleImage(request, id):
-    image = Post.objects.filter(id=id)
-    comments = Comment.objects.all()
-    print(comments)
-    return render(request, 'Index.html', {'image': image, 'comments':comments})
+    image = Post.objects.filter(id = id)
+    likes = Like.objects.filter(post = id).count()
+    comments = Comment.objects.filter(post = id).count()
+    return render(request, 'Index.html', {'image': image, 'comments':comments, 'likes':likes})
 
 @login_required(login_url='Login')
 def AddNewPost(request, username):
@@ -217,17 +217,13 @@ def AddComment(request, id):
 def PostLike(request,id):
     postTobeliked = Post.objects.get(id = id)
     currentUser = User.objects.get(id = request.user.id)
-
     if not postTobeliked:
         return "Post Not Found!"
-
     else:
         like = Like.objects.filter(author = currentUser, post = postTobeliked)
-
         if like:
             messages.error(request, '⚠️ You Can Only Like A Post Once!')
             return redirect('Home')
-
         else:
             likeToadd = Like(author = currentUser, post = postTobeliked)
             likeToadd.save()
