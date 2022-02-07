@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from .models import Post, Profile, Comment
+from .models import Like, Post, Profile, Comment
 
 # Create your views here.
 def Register(request):
@@ -212,3 +212,24 @@ def AddComment(request, id):
     else:
         messages.error(request, "⚠️ Your Comment Wasn't Created!")
         return redirect('Home')
+
+@login_required(login_url='Login')
+def PostLike(request,id):
+    postTobeliked = Post.objects.get(id = id)
+    currentUser = User.objects.get(id = request.user.id)
+
+    if not postTobeliked:
+        return "Post Not Found!"
+
+    else:
+        like = Like.objects.filter(author = currentUser, post = postTobeliked)
+
+        if like:
+            messages.error(request, '⚠️ You Can Only Like A Post Once!')
+            return redirect('Home')
+
+        else:
+            likeToadd = Like(author = currentUser, post = postTobeliked)
+            likeToadd.save()
+            messages.success(request, '✅ You Successfully Liked The Post!')
+            return redirect('Home')

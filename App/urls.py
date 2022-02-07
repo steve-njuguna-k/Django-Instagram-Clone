@@ -13,6 +13,7 @@ urlpatterns = [
     path('profile/<str:username>/settings', views.Settings, name="Settings"),
     path('post/<int:id>', views.SingleImage, name="SingleImage"),
     path('profile/<str:username>/image/add', views.AddNewPost, name="AddNewPost"),
+    path('post/<int:id>/like', views.PostLike, name="PostLike"),
     path('logout', views.Logout, name="Logout"),
     path('post/<int:id>/comment', views.AddComment, name="AddComment"),
     path('search-results', views.Search, name="Search"),

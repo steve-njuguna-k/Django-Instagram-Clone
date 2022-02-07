@@ -52,7 +52,8 @@
                 
                             <div class="post__footer">
                                 <div class="post__buttons">
-                                    <button class="post__button">
+                                    <a href="{%url 'PostLike' post.id %}">
+                                      <button class="post__button">
                                         <svg
                                             width="24"
                                             height="24"
@@ -67,7 +68,8 @@
                                             stroke-width="0.6"
                                             />
                                         </svg>
-                                    </button>
+                                      </button>
+                                    </a>
                                     <button class="post__button" data-toggle="modal" data-target="#Modal{{ post.id }}">
                                         <svg
                                             width="24"
@@ -176,7 +178,7 @@
   
             <div class="side-menu__suggestions-section">
               <div class="side-menu__suggestions-header">
-                <h2>Suggestions for You</h2>
+                <h2>People I Follow</h2>
                 <button>See All</button>
               </div>
               <div class="side-menu__suggestions-content">
