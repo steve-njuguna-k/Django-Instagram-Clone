@@ -166,10 +166,13 @@ def Settings(request, username):
         return render(request, "Settings.html", {'form': form})
 
 def SingleImage(request, id):
-    image = Post.objects.filter(id = id)
-    likes = Like.objects.filter(post = id).count()
-    comments = Comment.objects.filter(post = id).count()
-    return render(request, 'Index.html', {'image': image, 'comments':comments, 'likes':likes})
+    post = Post.objects.get(id = id)
+    print(post)
+    likes = Like.objects.filter(post = post.id).count()
+    print(likes)
+    comments = Comment.objects.filter(post = post.id).count()
+    print(comments)
+    return render(request, 'Post Details.html', {'post': post, 'comments':comments, 'likes':likes})
 
 @login_required(login_url='Login')
 def AddNewPost(request, username):
@@ -194,9 +197,12 @@ def Search(request):
     if request.method == 'POST':
         search = request.POST['imageSearch']
         users = User.objects.filter(username__icontains = search).all()
-        images = Post.objects.filter(author = users[0]).all()
-        images_count = Post.objects.filter(author = users[0])
-        return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count})
+        if not users:
+            return render(request, 'Search Results.html', {'search':search, 'users':users})
+        else:
+            images = Post.objects.filter(author = users[0]).all()
+            images_count = Post.objects.filter(author = users[0])
+            return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count})
     else:
         return render(request, 'Search Results.html')
 

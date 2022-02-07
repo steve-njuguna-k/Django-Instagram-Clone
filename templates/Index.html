@@ -133,10 +133,12 @@
                                         <img src="https://www.pinclipart.com/picdir/middle/148-1486972_mystery-man-avatar-circle-clipart.png" alt="User Picture" />
                                       </a>
                                         <span>
-                                          {% if likes == 1 %}
-                                            <b>Liked by {{ likes }} person</b>
+                                          {% if post.get_likes == 0 %}
+                                            <b>Like this post</b>
+                                          {% elif post.get_likes == 1 %}
+                                            <b>Liked by {{ post.get_likes }} person</b>
                                           {% else %}
-                                            <b>Liked by {{ likes }} others</b>
+                                            <b>Liked by {{ post.get_likes }} others</b>
                                           {% endif %}
                                         </span>
                                     </div>
@@ -290,7 +292,7 @@
         </section>
     </main>
 
-    <!-- Modal -->
+    <!-- Post Details Modal -->
     {% for post in posts %}
         <div class="modal fade" id="exampleModal{{ post.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -335,7 +337,7 @@
         </div>
     {% endfor %}
 
-    <!-- Modal -->
+    <!-- Comment Modal -->
     {% for post in posts %}
         <div class="modal fade" id="Modal{{ post.id }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -365,15 +367,15 @@
                             </div>
                             <hr>
                             <div class="post__description comments">
-                                <span>
-                                  <b>Comments</b>
-                                </span>
-                                {% for comment in comments %}
-                                <span>
-                                  <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ comment.author.username }}</b></a>
-                                  {{ comment.opinion }}
-                                </span>
-                                {% endfor %}
+                                {% if post.get_comments %}
+                                    {% for comment in post.get_comments %}
+                                      <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ post.author.username }}</b></a>
+                                      <br>
+                                      <p class="comment" style="padding-left: 5px;"> {{ comment.opinion }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    <h4 class="text-center fs-5 mt-3 text-muted">Be the first to comment!</h4>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
