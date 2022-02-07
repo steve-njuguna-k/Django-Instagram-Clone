@@ -207,7 +207,9 @@ def Search(request):
         else:
             images = Post.objects.filter(author = users[0]).all()
             images_count = Post.objects.filter(author = users[0])
-            return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count})
+            follower_count = Follow.objects.filter(following = users[0])
+            following_count = Follow.objects.filter(user = users[0])
+            return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count})
     else:
         return render(request, 'Search Results.html')
 

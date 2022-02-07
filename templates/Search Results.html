@@ -40,9 +40,13 @@
     
                     <h1 class="profile-user-name">{{ user.username }}</h1>
 
-                    <a href="{% url 'EditProfile' user.username %}" name='EditProfile'>
+                    {% if follower_count|length > 0 %}
+                        <button class="btn profile-edit-btn">Following</button>
+                    {% else %}
+                    <a href="{% url 'FollowUser' profile.username %}">
                         <button class="btn profile-edit-btn">Follow</button>
                     </a>
+                    {% endif %}
     
                 </div>
     
@@ -51,15 +55,25 @@
                     <ul style="padding-left: 0px;">
                         <li>
                             {% if images_count|length == 0 %}
-                                <span class="profile-stat-count">{{ images_count|length }}</span> post
+                                <span class="profile-stat-count">{{ images_count|length }}</span> posts
                             {% elif images_count|length == 1 %}
                                 <span class="profile-stat-count">{{ images_count|length }}</span> post
                             {% else %}
                                 <span class="profile-stat-count">{{ images_count|length }}</span> posts
                             {% endif %}
                         </li>
-                        <li><span class="profile-stat-count">0</span> followers</li>
-                        <li><span class="profile-stat-count">0</span> following</li>
+                        <li>
+                            {% if follower_count|length == 0 %}
+                                <span class="profile-stat-count">{{ follower_count|length }}</span> followers
+                            {% elif follower_count|length == 1 %}
+                                <span class="profile-stat-count">{{ follower_count|length }}</span> follower
+                            {% else %}
+                                <span class="profile-stat-count">{{ follower_count|length }}</span> followers
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="profile-stat-count">{{ following_count|length }}</span> following
+                        </li>
                     </ul>
     
                 </div>

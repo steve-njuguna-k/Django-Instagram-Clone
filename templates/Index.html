@@ -201,7 +201,9 @@
                     <a href="user/{{ profile.user.username }}">{{ profile.user.username }}</a>
                     <span>{{ profile.user.first_name }}  {{ profile.user.last_name }}</span>
                   </div>
-                  <button class="side-menu__suggestion-button">Follow</button>
+                  <a href="user/{{ profile.user.username }}">
+                    <button class="side-menu__suggestion-button">Profile</button>
+                  </a>
                 </div>
                 {% endfor %}
               </div>
