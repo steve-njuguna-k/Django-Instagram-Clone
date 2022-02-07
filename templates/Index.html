@@ -154,15 +154,6 @@
                                     <form method="POST" action="{% url 'AddComment' post.id %}">
                                       {% csrf_token %}
                                       <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                                        {% if user.profile.profile_image %}
-                                          <div class="profile-button__picture">
-                                            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ user.profile.profile_image.url }}" alt="User Picture" width="38">
-                                          </div>
-                                        {% else %}
-                                          <div class="profile-button__picture">
-                                            <img class="img-fluid img-responsive rounded-circle mr-2" src={% static "assets/img/default-user.png" %} alt="User Picture" width="38">
-                                          </div>
-                                        {% endif %}
                                         <textarea class="form-control mr-3" rows="1" name="comment" placeholder="Your Comment" required></textarea>
                                         <button class="btn btn-primary btn-lg" type="submit">Comment</button>
                                       </div>
