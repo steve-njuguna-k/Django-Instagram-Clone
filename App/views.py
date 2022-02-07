@@ -116,7 +116,7 @@ def UserProfile(request, username):
     profile = User.objects.get(username=username)
     profile_details = Profile.objects.get(user = profile.id)
     images = Post.objects.filter(author = profile.id).all()
-    images_count = Post.objects.filter(author = profile.id).count()
+    images_count = Post.objects.filter(author = profile.id)
     return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
 
 @login_required(login_url='Login')
@@ -124,7 +124,7 @@ def MyProfile(request, username):
     profile = User.objects.get(username=username)
     profile_details = Profile.objects.get(user = profile.id)
     images = Post.objects.filter(author = profile.id).all()
-    images_count = Post.objects.filter(author = profile.id).count()
+    images_count = Post.objects.filter(author = profile.id)
     return render(request, 'My Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count})
 
 @login_required(login_url='Login')
@@ -191,11 +191,11 @@ def AddNewPost(request, username):
     return render(request, 'Add Post.html', {'form':form})
 
 def Search(request):
-    images = Post.objects.filter(author = request.user).all()
-    images_count = Post.objects.filter(author = request.user).count()
     if request.method == 'POST':
         search = request.POST['imageSearch']
         users = User.objects.filter(username__icontains = search).all()
+        images = Post.objects.filter(author = users[0]).all()
+        images_count = Post.objects.filter(author = users[0])
         return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count})
     else:
         return render(request, 'Search Results.html')

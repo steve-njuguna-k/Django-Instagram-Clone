@@ -9,7 +9,7 @@
         </div>
 
         <div class="header__search">
-            <form method="POST" action="{% url 'Search' %}" name="Search">
+            <form method="POST" action="{% url 'Search' %}" name="Search" role="search">
                 {% csrf_token %}
                 <input type="text" name="imageSearch" placeholder="Search Usernames" />
             </form>

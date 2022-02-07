@@ -50,10 +50,12 @@
     
                     <ul style="padding-left: 0px;">
                         <li>
-                            {% if image_count == 1 %}
-                            <span class="profile-stat-count">{{ images_count }}</span> post
+                            {% if images_count|length == 0 %}
+                            <span class="profile-stat-count">{{ images_count|length }}</span> post
+                            {% elif images_count|length == 1 %}
+                            <span class="profile-stat-count">{{ images_count|length }}</span> post
                             {% else %}
-                            <span class="profile-stat-count">{{ images_count }}</span> posts
+                            <span class="profile-stat-count">{{ images_count|length }}</span> posts
                             {% endif %}
                         </li>
                         <li><span class="profile-stat-count">0</span> followers</li>

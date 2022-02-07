@@ -36,6 +36,10 @@
                 <div class="profile-user-settings">
     
                     <h1 class="profile-user-name">{{ profile.username }}</h1>
+
+                    <a href="{% url 'EditProfile' user.username %}" name='EditProfile'>
+                        <button class="btn profile-edit-btn">Follow</button>
+                    </a>
     
                 </div>
     
@@ -43,10 +47,12 @@
     
                     <ul style="padding-left: 0px;">
                         <li>
-                            {% if image_count == 1 %}
-                            <span class="profile-stat-count">{{ images_count }}</span> post
+                            {% if images_count|length == 0 %}
+                                <span class="profile-stat-count">{{ images_count|length }}</span> post
+                            {% elif images_count|length == 1 %}
+                                <span class="profile-stat-count">{{ images_count|length }}</span> post
                             {% else %}
-                            <span class="profile-stat-count">{{ images_count }}</span> posts
+                                <span class="profile-stat-count">{{ images_count|length }}</span> posts
                             {% endif %}
                         </li>
                         <li><span class="profile-stat-count">0</span> followers</li>

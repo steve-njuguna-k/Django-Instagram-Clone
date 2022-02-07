@@ -26,6 +26,7 @@
     
             
             <div class="profile">
+                {% for user in users %}
     
                 <div class="profile-image">
                     {% if user.profile.profile_image %}
@@ -43,8 +44,16 @@
     
                 <div class="profile-stats">
     
-                    <ul>
-                        <li><span class="profile-stat-count">{{ images_count }}</span> posts</li>
+                    <ul style="padding-left: 0px;">
+                        <li>
+                            {% if images_count|length == 0 %}
+                                <span class="profile-stat-count">{{ images_count|length }}</span> post
+                            {% elif images_count|length == 1 %}
+                                <span class="profile-stat-count">{{ images_count|length }}</span> post
+                            {% else %}
+                                <span class="profile-stat-count">{{ images_count|length }}</span> posts
+                            {% endif %}
+                        </li>
                         <li><span class="profile-stat-count">0</span> followers</li>
                         <li><span class="profile-stat-count">0</span> following</li>
                     </ul>
@@ -62,6 +71,8 @@
                     </p>
     
                 </div>
+
+                {% endfor %}
     
             </div>
             <!-- End of profile section -->
