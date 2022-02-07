@@ -14,6 +14,15 @@ import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
 from dotenv import load_dotenv, find_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config( 
+  cloud_name = os.environ.get('CLOUD_NAME'), 
+  api_key = os.environ.get('API_KEY'), 
+  api_secret = os.environ.get('API_SECRET')
+)
 
 load_dotenv(find_dotenv())
 
@@ -29,10 +38,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +51,7 @@ INSTALLED_APPS = [
 
     'App',
     'django_cleanup.apps.CleanupConfig',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -75,7 +84,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Core.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -160,3 +168,11 @@ EMAIL_PORT = os.environ.get("EMAIL_PORT")
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
+
+DISABLE_COLLECTSTATIC = os.environ.get('DISABLE_COLLECTSTATIC') 

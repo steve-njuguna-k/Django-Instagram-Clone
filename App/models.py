@@ -1,12 +1,13 @@
 from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User')
     bio = models.TextField(max_length=150, verbose_name='Bio', null=True)
-    profile_image = models.ImageField(upload_to='Profile-Pics', default='default.jpg', verbose_name='Profile Image')
+    profile_image = CloudinaryField('profile_image')
     email_confirmed = models.BooleanField(default=False, verbose_name='Is Confirmed?')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
@@ -27,7 +28,7 @@ class Profile(models.Model):
         verbose_name_plural = 'Profiles'
 
 class Post(models.Model):
-    image = models.ImageField(upload_to='Post-Pics', verbose_name='Post Image', null=False)
+    image = CloudinaryField('image')
     title = models.CharField(max_length=500, verbose_name='Caption', null=False)
     caption = models.CharField(max_length=2200, verbose_name='Caption', null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
