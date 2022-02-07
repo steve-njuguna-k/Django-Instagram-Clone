@@ -251,7 +251,8 @@ def FollowUser(request, username):
         messages.error(request, "⚠️ You can't follow yourself!")
         return redirect('UserProfile', username=username)
     if not userTobefollowed:
-        return "User Does Not Exist!"
+        messages.error(request, "⚠️ User Does Not Exist!")
+        return redirect('UserProfile', username=username)
     else:
         follow = Follow.objects.filter(user = currentUser, following = userTobefollowed)
         if follow:
