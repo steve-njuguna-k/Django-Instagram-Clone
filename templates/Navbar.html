@@ -111,9 +111,13 @@
                 <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                     <div style="background-color: #ffffff;">
                         {% if user.profile.profile_image %}
+                        <div class="profile-button__picture">
                             <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" alt="" height="24" width="24">
+                        </div>
                         {% else %}
-                        <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+                        <div class="profile-button__picture">
+                            <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+                        </div>
                         {% endif %}
                     </div>
                 </button>

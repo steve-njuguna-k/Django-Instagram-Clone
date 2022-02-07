@@ -168,6 +168,7 @@
   
         <section class="side-menu">
             <div class="side-menu__user-profile">
+              {% if user.profile.profile_image %}
               <a
                 href="{% url 'UserProfile' user.username %}"
                 
@@ -175,6 +176,15 @@
               >
                 <img src="{{ user.profile.profile_image.url }}" alt="User Picture" />
               </a>
+              {% else %}
+              <a
+                href="{% url 'UserProfile' user.username %}"
+                
+                class="side-menu__user-avatar"
+              >
+                <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+              </a>
+              {% endif %}
               <div class="side-menu__user-info">
                 <a href="{% url 'UserProfile' user.username %}" 
                   >{{ user.username }}</a
@@ -194,9 +204,15 @@
               <div class="side-menu__suggestions-content">
                 {% for profile in profiles|slice:":10" %}
                 <div class="side-menu__suggestion">
+                  {% if user.profile.profile_image %}
                   <a href="user/{{ profile.user.username }}" class="side-menu__suggestion-avatar">
                     <img src="{{ profile.profile_image.url }}" alt="User Picture" />
                   </a>
+                  {% else %}
+                  <a href="user/{{ profile.user.username }}" class="side-menu__suggestion-avatar">
+                    <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+                  </a>
+                  {% endif %}
                   <div class="side-menu__suggestion-info">
                     <a href="user/{{ profile.user.username }}">{{ profile.user.username }}</a>
                     <span>{{ profile.user.first_name }}  {{ profile.user.last_name }}</span>
