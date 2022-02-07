@@ -311,7 +311,7 @@
                         <div class="col-md-3">
                             <div class="d-flex flex-row user-info">
                                 <a href="{% url 'UserProfile' user.username %}">
-                                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
+                                    <img class="rounded-circle" src="{{ post.profile.profile_image.url }}" height="50" width="50">
                                 </a>
                                 <div class="d-flex flex-column justify-content-start ml-2">
                                     <a href="{% url 'UserProfile' user.username %}">
@@ -356,7 +356,7 @@
                         <div class="col-md-3">
                             <div class="d-flex flex-row user-info">
                                 <a href="{% url 'UserProfile' user.username %}">
-                                    <img class="rounded-circle" src="{{ user.profile.profile_image.url }}" height="50" width="50">
+                                    <img class="rounded-circle" src="{{ post.profile.profile_image.url }}" height="50" width="50">
                                 </a>
                                 <div class="d-flex flex-column justify-content-start ml-2">
                                     <a href="{% url 'UserProfile' user.username %}">
@@ -366,17 +366,19 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="post__description comments">
-                                {% if post.get_comments %}
-                                    {% for comment in post.get_comments %}
-                                      <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ post.author.username }}</b></a>
-                                      <br>
-                                      <p class="comment" style="padding-left: 5px;"> {{ comment.opinion }}</p>
-                                    {% endfor %}
-                                {% else %}
-                                    <h4 class="text-center fs-5 mt-3 text-muted">Be the first to comment!</h4>
-                                {% endif %}
-                            </div>
+                            {% if post.get_comments %}
+                              {% for comment in post.get_comments %}
+                              <div class="post__description">
+                                <span>
+                                  <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ comment.author.username }}</b></a>
+                                  {{ comment.opinion }}
+                                  </span>
+                              </div>
+                              <br>
+                              {% endfor %}
+                            {% else %}
+                              <h4 class="text-center fs-5 mt-3 text-muted">Be the first to comment!</h4>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
