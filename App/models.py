@@ -22,7 +22,7 @@ class Profile(models.Model):
         return self.following.all()
     
     def __str__(self):
-        return self.user
+        return str(self.user)
     
     class Meta:
         verbose_name_plural = 'Profiles'
@@ -59,7 +59,7 @@ class Post(models.Model):
         return update
     
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     class Meta:
         verbose_name_plural = 'Posts'
@@ -82,7 +82,7 @@ class Comment(models.Model):
         return comments
 
     def __str__(self):
-        return self.comment
+        return str(self.comment)
 
     class Meta:
         verbose_name_plural = 'Comments'
