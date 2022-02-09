@@ -36,12 +36,16 @@
                 <div class="profile-user-settings">
     
                     <h1 class="profile-user-name">{{ profile.username }}</h1>
-                    {% if followers|length > 0 %}
+                    {% if user == current_user %}
+                        <a href="follow/user/{{ user.username }}" class="btn profile-edit-btn disabled" role="button" aria-disabled="true">
+                            Follow
+                        </a>
+                    {% elif follower_count|length > 0 %}
                         <button class="btn profile-edit-btn">Following</button>
                     {% else %}
-                    <a href="{% url 'FollowUser' profile.username %}">
-                        <button class="btn profile-edit-btn">Follow</button>
-                    </a>
+                        <a href="follow/user/{{ user.username }}">
+                            <button class="btn profile-edit-btn">Follow</button>
+                        </a>
                     {% endif %}
     
                 </div>

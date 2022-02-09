@@ -203,7 +203,7 @@
               <div class="side-menu__suggestions-content">
                 {% for profile in profiles|slice:":10" %}
                 <div class="side-menu__suggestion">
-                  {% if user.profile.profile_image %}
+                  {% if profile.profile_image %}
                   <a href="user/{{ profile.user.username }}" class="side-menu__suggestion-avatar">
                     <img src="{{ profile.profile_image.url }}" alt="User Picture" />
                   </a>

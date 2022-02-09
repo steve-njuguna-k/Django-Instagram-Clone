@@ -137,13 +137,14 @@ def Home(request):
 
 @login_required(login_url='Login')
 def UserProfile(request, username):
+    current_user = request.user
     profile = User.objects.get(username=username)
     profile_details = Profile.objects.get(user = profile.id)
     images = Post.objects.filter(author = profile.id).all()
     images_count = Post.objects.filter(author = profile.id)
     followers = Profile.get_followers(self=profile)
     following = Profile.get_following(self=profile)
-    return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following})
+    return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following, 'current_user':current_user})
 
 @login_required(login_url='Login')
 def MyProfile(request, username):
@@ -223,8 +224,6 @@ def AddNewPost(request, username):
 
 def Search(request):
     current_user = request.user
-    print(current_user)
-
     if request.method == 'POST':
         search = request.POST['imageSearch']
         users = User.objects.filter(username__icontains = search).all()
