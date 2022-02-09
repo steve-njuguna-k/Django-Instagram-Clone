@@ -1,9 +1,13 @@
+from multiprocessing.dummy import current_process
+import threading
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+
+from Core import settings
 from .forms import UpdateUserForm, UpdateProfileForm, AddPostForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -15,10 +19,37 @@ from .tokens import account_activation_token
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from .models import Follow, Like, Post, Profile, Comment
+from django.core.mail import EmailMessage
 
 # Create your views here.
+class EmailThread(threading.Thread):
+
+    def __init__(self, email):
+        self.email = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email.send()
+
+def send_activation_email(user, request):
+    current_site = get_current_site(request)
+    email_subject = 'Activate Your InstaPics Account'
+    email_body = render_to_string('Account Activation Email.html', {
+        'user': user,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user)
+    })
+
+    email = EmailMessage(subject=email_subject, body=email_body,
+    from_email=settings.EMAIL_FROM_USER, to=[user.email])
+
+    if not settings.TESTING:
+        EmailThread(email).start()
+
 def Register(request):
     if request.method == 'POST':
+        context = {'has_error': False}
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         username = request.POST['username']
@@ -43,18 +74,10 @@ def Register(request):
         user.is_active = False
         user.save()
 
-        current_site = get_current_site(request)
-        subject = 'Activate Your InstaPics Account'
-        message = render_to_string('Account Activation Email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-        })
-        user.email_user(subject, message)
-
-        messages.success(request, '✅ Regristration Successful! An Activation Link Has Been Sent To Your Email')
-        return redirect('Register')
+        if not context['has_error']:
+            send_activation_email(user, request)
+            messages.success(request, '✅ Regristration Successful! An Activation Link Has Been Sent To Your Email')
+            return redirect('Register')
 
     return render(request, 'Register.html')
 
@@ -134,7 +157,7 @@ def MyProfile(request, username):
 
 @login_required(login_url='Login')
 def EditProfile(request, username):
-    user = User.objects.filter(username=username)
+    user = User.objects.get(username=username)
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -155,7 +178,7 @@ def EditProfile(request, username):
 
 @login_required(login_url='Login')
 def Settings(request, username):
-    username = User.objects.filter(username=username)
+    username = User.objects.get(username=username)
     if request.method == "POST":
         form = PasswordChangeForm(data=request.POST, user=request.user)
         if form.is_valid():
@@ -199,6 +222,9 @@ def AddNewPost(request, username):
     return render(request, 'Add Post.html', {'form':form})
 
 def Search(request):
+    current_user = request.user
+    print(current_user)
+
     if request.method == 'POST':
         search = request.POST['imageSearch']
         users = User.objects.filter(username__icontains = search).all()
@@ -209,7 +235,7 @@ def Search(request):
             images_count = Post.objects.filter(author = users[0])
             follower_count = Follow.objects.filter(following = users[0])
             following_count = Follow.objects.filter(user = users[0])
-            return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count})
+            return render(request, 'Search Results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count, 'current_user':current_user})
     else:
         return render(request, 'Search Results.html')
 
