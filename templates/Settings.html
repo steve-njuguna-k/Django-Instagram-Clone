@@ -11,7 +11,7 @@
             {% if messages %}
                 {% for message in messages %} 
                 <div class="alert {{message.tags}} m-1" role="alert" style="font-size: medium;">
-                    {{message}} <a href="{% url 'Profile' %}" name='Profile'><b>Back To Profile</b></a>
+                    {{message}} <a href="{% url 'MyProfile' %}" name='MyProfile'><b>Back To Profile</b></a>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
