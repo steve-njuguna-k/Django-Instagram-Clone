@@ -272,6 +272,7 @@ def PostLike(request,id):
 def FollowUser(request, username):
     userTobefollowed = User.objects.get(username = username)
     currentUser = request.user
+    is_followed = False
     if userTobefollowed.id == currentUser.id:
         messages.error(request, "⚠️ You can't follow yourself!")
         return redirect('UserProfile', username=username)
