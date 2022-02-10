@@ -41,11 +41,11 @@
 
                     {% if profile != current_user %}
                         {% if is_followed %}
-                            <button class="btn profile-edit-btn">Following</button>
+                        <button class="btn profile-edit-btn">Following</button>
                         {% else %}
-                            <a href="follow/user/{{ profile.username }}">
-                                <button class="btn profile-edit-btn">Follow</button>
-                            </a>
+                        <a href="follow/user/{{ user.username }}">
+                            <button class="btn profile-edit-btn">Follow</button>
+                        </a>
                         {% endif %}
                     {% endif %}
     

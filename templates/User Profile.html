@@ -40,7 +40,7 @@
                         {% if is_followed %}
                         <button class="btn profile-edit-btn">Following</button>
                         {% else %}
-                        <a href="follow/user/{{ profile.username }}">
+                        <a href="{% url 'FollowUser' profile.username %} ">
                             <button class="btn profile-edit-btn">Follow</button>
                         </a>
                         {% endif %}
