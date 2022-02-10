@@ -1,4 +1,4 @@
-# Django-Instagram-Clone
+# Django Instagram Clone (InstaPics)
 A Django application that allows users to upload, like and comment on other peoples images. Images have captions and users have profiles where you can see all their images Images are hosted on Cloudinary.
 
 ![](https://github.com/steve-njuguna-k/Django-Instagram-Clone/blob/master/Screenshots/1.PNG)
